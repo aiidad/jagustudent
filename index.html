@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ЖАГУ — Университет Башкаруу Системасы</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="page-login" class="page active">
+  <div class="login-wrap">
+    <div class="login-box">
+      <h1 class="login-logo">ЖАГУ</h1>
+      <p class="login-sub">Жалал-Абад Мамлекеттик Университети</p>
+      <div class="tab-btns">
+        <button class="tab-btn active" id="btn-tab-st" onclick="switchLoginTab('student')">🎓 Студент</button>
+        <button class="tab-btn" id="btn-tab-tc" onclick="switchLoginTab('teacher')">👨‍🏫 Мугалим</button>
+      </div>
+      <div id="login-error" class="login-error"></div>
+      <div id="login-form-student">
+        <label class="form-label">Логин</label>
+        <input class="form-inp" id="st-login-id" autocomplete="off"/>
+        <label class="form-label">Сыр сөз</label>
+        <input class="form-inp" type="password" id="st-login-pass"/>
+        <button class="btn-primary" onclick="loginStudent()">Кирүү</button>
+      </div>
+      <div id="login-form-teacher" style="display:none">
+        <label class="form-label">Логин</label>
+        <input class="form-inp" id="tc-login-id" autocomplete="off"/>
+        <label class="form-label">Сыр сөз</label>
+        <input class="form-inp" type="password" id="tc-login-pass"/>
+        <button class="btn-primary" onclick="loginTeacher()">Кирүү</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-student" class="page">
+  <nav class="topnav">
+    <div class="nav-brand">ЖАГУ</div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="stTab('schedule', this)">📅 Жадыбал</button>
+      <button class="nav-btn" onclick="stTab('grades', this)">📊 Баалар</button>
+      <button class="nav-btn" onclick="stTab('profile', this)">👤 Профиль</button>
+    </div>
+    <div class="nav-user" id="st-nav-user"></div>
+    <button class="nav-logout" onclick="logout()">Чыгуу</button>
+  </nav>
+  <div class="content">
+    <div id="st-schedule" class="tab-content active">
+      <h2>Жадыбал</h2>
+      <div class="sched-cards" id="st-schedule-cards"></div>
+    </div>
+    <div id="st-grades" class="tab-content">
+      <h2>Баалар</h2>
+      <div id="st-grades-cards"></div>
+      <div class="overall-avg-bar" id="st-overall-avg-bar" style="display:none">
+        Жалпы орточо баа: <strong id="st-overall-avg">—</strong>
+      </div>
+    </div>
+    <div id="st-profile" class="tab-content">
+      <h2>Профиль</h2>
+      <div id="st-profile-body"></div>
+    </div>
+  </div>
+</div>
+
+<div id="page-teacher" class="page">
+  <nav class="topnav">
+    <div class="nav-brand">ЖАГУ</div>
+    <div class="nav-links">
+      <button class="nav-btn active" onclick="tcTab('schedule', this)">📅 Жадыбал</button>
+      <button class="nav-btn" onclick="tcTab('journal', this)">📒 Журнал</button>
+      <button class="nav-btn" onclick="tcTab('profile', this)">👤 Профиль</button>
+    </div>
+    <div class="nav-user" id="tc-nav-user"></div>
+    <button class="nav-logout" onclick="logout()">Чыгуу</button>
+  </nav>
+  <div class="content">
+    <div id="tc-schedule" class="tab-content active">
+      <h2>Менин сабагым</h2>
+      <div class="sched-cards" id="tc-schedule-cards"></div>
+    </div>
+    <div id="tc-journal" class="tab-content">
+      <h2>Журнал</h2>
+      <p class="tc-subj-label" id="tc-subj-label"></p>
+      <div class="journal-filters">
+        <select id="tc-group-sel" onchange="onGroupChange()">
+          <option value="">— Группа тандаңыз —</option>
+        </select>
+        <select id="tc-page-sel" onchange="onPageChange()" disabled>
+          <option value="">— Барак тандаңыз —</option>
+        </select>
+        <div class="date-input-wrap">
+          <label class="date-input-label">📅 Күн</label>
+          <input id="journal-date-input" class="journal-date-inp" type="text"
+            placeholder="дд.мм" maxlength="5" oninput="onDateInputChange(this)"/>
+        </div>
+      </div>
+      <div id="journal-placeholder" class="journal-placeholder">
+        ⬆️ Группа жана баракты тандаңыз
+      </div>
+      <div id="journal-table-wrap" style="display:none">
+        <div id="journal-title"></div>
+        <div class="table-scroll">
+          <table>
+            <thead id="journal-thead"></thead>
+            <tbody id="journal-tbody"></tbody>
+          </table>
+        </div>
+        <div class="journal-footer">
+          <button class="btn-save" onclick="saveGrades()">💾 Сактоо</button>
+          <span class="grade-msg" id="journal-save-msg"></span>
+          <span class="journal-avg-info"></span>
+        </div>
+      </div>
+      <div id="journal-history-wrap"></div>
+    </div>
+    <div id="tc-profile" class="tab-content">
+      <h2>Профиль</h2>
+      <div id="tc-profile-body"></div>
+    </div>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
